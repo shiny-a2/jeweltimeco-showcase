@@ -1,106 +1,510 @@
-# jeweltimeco-showcase
+# JewelTime WebApp Showcase
 
-A production-oriented PWA web application for catalog, ordering, and admin/CRM-lite workflows, built to improve operational consistency and reduce manual coordination overhead.
+Public-safe, full capability documentation for the JewelTime production web app.
+This README intentionally includes feature and architecture details, but no secrets.
 
-## Product Scope
-- Catalog browsing and assisted ordering flow.
-- Admin and CRM-lite operational panel.
-- Installable PWA behavior with offline-aware caching.
-- Web push notifications with VAPID-based delivery.
+## 1) Product Definition
 
-## Technology
-- PHP + MySQL + Vanilla JavaScript.
+JewelTime WebApp is a Persian/RTL, mobile-first **PWA** that combines:
 
-## Roles
-- admin
-- accountant
-- sales consultant
-- customer
+- Product catalog browsing
+- Sales ordering workflow (pre-invoice to fulfillment)
+- CRM-lite (customers, consultants, files, communication history)
+- Role-based operational dashboards
+- Inventory allocation by unique barcode-level stock
+- Admin communication center (push + SMS + logs)
 
-## Integrations
-- Kavenegar OTP/SMS for verification and communication.
-- WooCommerce DB read layer for products, prices, stock, and media.
+It is not only a storefront; it is a complete operational system for sales, accounting, and management workflows.
 
-## Outcomes
-- Reduced manual operations.
-- Improved operational stability.
-- Improved perceived speed for daily workflows.
+## 2) Technology Stack
 
-This repository is documentation-only and does not expose source code.
+- Backend: PHP (procedural endpoints + shared libs)
+- Database: MySQL/MariaDB
+- Dual DB model:
+- WooCommerce DB (catalog/media/taxonomy source + stock/price sync target)
+- App DB (users, customers, orders, statuses, files, inventory, notifications, logs)
+- Frontend: Vanilla JavaScript SPA (`assets/app.js`) + hash router
+- UI: Custom CSS + Jalali date picker (Persian calendar)
+- PWA: `manifest.webmanifest` + `sw.js` + install flow + Web Push
+- Integrations:
+- Kavenegar OTP (`verify/lookup`)
+- Kavenegar SMS send + status APIs
+- Email sending for orders/contact/agency forms
 
-## Latest Public Update (2026-02-23)
-- Documentation synced with the current private production baseline.
-- Product detail improvements:
-  - Native share action (system share sheet when available).
-  - Copy-link fallback for environments without `navigator.share`.
-- Navigation reliability improvements:
-  - Hardened restore path for returning from product detail to brand list context.
-  - Cross-browser/PWA scroll restoration notes documented.
+## 3) Roles and Access Model
 
-## Project Index
-The table below is a complete index of private-source repositories used across the portfolio.
-| Project | Purpose | KPI (Anonymized) | Source |
+| Role | Main Access |
+|---|---|
+| Guest | Browse catalog, product search, contact/agency forms, local cart |
+| Customer | Profile, own orders, own files, push opt-in, profile edit |
+| Marketer (Sales Consultant) | Dashboard, scan-to-cart, add customer, upload files to own customers, view invoices |
+| Accountant | Dashboard, invoice management, status/sepidar updates, delete invoice, inventory upload, product trace, customer file operations |
+| Admin | Full access: user creation, customer management with ranking, analytics, allocation tool, push/SMS center, logs, online users |
+
+## 4) Full Functional Scope (Feature-by-Feature)
+
+### 4.1 Catalog and Discovery
+
+- Brand list from `brands.json` with real product counts.
+- Brand pages with:
+- Pagination/infinite load
+- In-brand search
+- Sort modes (`new`, `price_asc`, `price_desc`)
+- Stock-first ordering (in-stock and backorder shown first)
+- Global search and in-category search across:
+- Product title
+- SKU
+- Reference attribute
+- Order-code attribute (`pa_کد-سفارش`)
+- Product cards include:
+- Thumbnail
+- Title
+- Price (from app price table)
+- Order code
+- Stock status
+- Persistent visual highlight when product is in cart.
+
+### 4.2 Product Page and Media UX
+
+- Product detail fields:
+- Title
+- Featured image
+- Price
+- Reference
+- Case size
+- Order code
+- Dynamic stock quantities
+- Reserved quantities (privileged roles)
+- Full gallery modal with:
+- Tap-to-open
+- Pinch zoom
+- Lens magnifier
+- Pan and double-tap zoom handling
+- Proper frame clipping so zoom does not overflow container
+- Share button:
+- Native share sheet where available
+- Fallback copy-link flow
+- Back navigation persistence:
+- Returns user to exact previous product position inside category/search lists
+- Sticky header with search on listing pages.
+
+### 4.3 Cart and Checkout
+
+- Sticky cart behavior with always-visible totals.
+- Cart row content includes image, order code, price, quantity controls.
+- Out-of-stock products block add-to-cart.
+- Customer data form supports:
+- Auto-fill by mobile lookup (`customer_lookup`)
+- Role-aware required fields
+- Mandatory sales consultant link for customer records
+- Marketer workflow:
+- Cart view remains accessible
+- Customer form is enforced during finalization flow
+- Order submission:
+- Validates payload and pricing table mapping by order code
+- Stores customer snapshot
+- Stores item-level details including brand/order code/title
+- Generates order number sequence:
+- Starts at `100`
+- Increments by step `2` (`100, 102, 104, ...`)
+- Sends order email with attached CSV snapshot.
+
+### 4.4 Profile Experience
+
+- Customer profile:
+- Basic account data
+- Edit profile (mobile immutable in UI where required by role policy)
+- Orders list with status and totals
+- Order export download (`.xlsx`)
+- Customer files panel with downloads
+- Marketer/Admin/Accountant profile areas:
+- Role and account identity shown in Persian labels
+- Logout actions in dashboard/profile flows
+- Push activation toggle.
+
+### 4.5 Dashboards and Analytics
+
+- Jalali date filtering across dashboards.
+- Quick range presets:
+- 30 days
+- 14 days
+- 7 days
+- Yesterday
+- Start of current Jalali year
+- Default range behavior:
+- Current Jalali month start to current day
+- KPI cards:
+- Order count
+- Revenue
+- Sold items
+- New customers
+- Total customers
+- Total consultants (admin scope)
+- Admin analytics extras:
+- Top 10 brands table (sortable)
+- Top 10 best-selling references/products
+- Brand filter for top products
+- Product thumbnail link to product page
+- Marketer ranking panel by revenue.
+
+### 4.6 Invoice Management and Accounting
+
+- Managed invoice table with:
+- Order number
+- Sepidar invoice number
+- Sepidar editor (inline pencil action)
+- Registrar metadata (who/when set Sepidar number)
+- Customer
+- Consultant
+- Item count
+- Brand list in order
+- Status dropdown
+- Last status update timestamp and actor
+- Amount
+- Excel export action
+- Delete action with two-step confirmation
+- Order status workflow:
+- `preinvoice` (with backward compatibility for `submitted/draft`)
+- `invoiced`
+- `awaiting_doc`
+- `accounting_approved`
+- `post_delivered`
+- `canceled`
+- Status change log table with actor and timestamp.
+- Inventory side-effects:
+- Cancel releases reserved unique codes
+- Invoiced + Sepidar-ready can consume reserved allocations.
+
+### 4.7 Inventory, Barcode, and Reservation Engine
+
+- Inventory source is **unique-code table** (not only Woo stock field).
+- Inventory upload supports CSV/XLSX:
+- Column A: order code
+- Column B: unique product code (barcode unique id)
+- Optional column C: price in Rial (toggle `include_price`)
+- Upload processing:
+- Upsert active unique codes
+- Deactivate missing unique codes
+- Update app price table by order code
+- Sync Woo stock metadata and optional prices
+- Mark products out-of-stock when no active code remains
+- Produce downloadable “missing products” CSV report when order code exists in file but no product mapping is found
+- Scanner flow:
+- Fixed floating scan button in catalog/brand contexts
+- Uses `BarcodeDetector` when available
+- Falls back to ZXing when needed
+- Scanned unique code resolves to order code and product
+- Auto-add behavior with reservation checks
+- Handles already-assigned, mismatch, and shortage scenarios
+- Supports manual-without-code allocation when fully reserved and user confirms
+- Product trace tool (admin/accountant):
+- Input unique code
+- Shows whether in stock, reserved, or invoiced
+- Shows linked invoice/customer/order data when consumed.
+
+### 4.8 Allocation Tool (Admin)
+
+- Dedicated “Allocate” modal with independent Jalali date range.
+- Rank filter (A/B/C/D/E).
+- Detects oversold references by comparing ordered qty to available inventory.
+- Prioritizes customers by selected ranks and order time.
+- Produces allocation table:
+- Ordered qty
+- Allocated qty
+- Remaining/shortage per reference.
+
+### 4.9 File Distribution to Customers
+
+- Admin/Accountant/Marketer can upload files to customer profiles.
+- Marketer is restricted to own customers.
+- File panel includes:
+- Searchable customer selector
+- Upload form
+- File table with Jalali date, customer, uploader, download, delete
+- Customer sees assigned files in own profile and can download.
+
+### 4.10 Communications: Push and SMS
+
+- Web Push:
+- Public key endpoint
+- Subscription/unsubscription
+- Notification inbox fetch for SW
+- Unread/read tracking per user identity tuple
+- Admin push panel:
+- Role-based targeting
+- Recipient search
+- Customer rank filtering
+- Send to single recipient or all in role/rank scope
+- Automatic push events:
+- Order status change -> customer + related marketer
+- New customer file upload -> customer
+- SMS:
+- OTP request and verify via Kavenegar template lookup
+- Admin SMS panel:
+- Role/rank targeting
+- Searchable recipient list
+- Send single/all
+- SMS logs include:
+- Recipient
+- Message
+- Message ID
+- Delivery status code/text
+- Status refresh from Kavenegar `sms/status`.
+
+### 4.11 Admin Governance Tools
+
+- Add user modal with role selection:
+- Marketer
+- Accountant
+- Admin
+- Customer (through dedicated customer-creation flow)
+- Admin customer management modal:
+- Search and select customer
+- Edit profile fields
+- Set customer rank (`A`..`E`)
+- View customer purchase summary:
+- Order count
+- Purchased brands
+- Total volume
+- User activity logs modal with Jalali date filter
+- Online users modal with live refresh.
+
+### 4.12 Contact and Agency Forms
+
+- “Contact Us” form:
+- Full validation
+- Rate limit
+- Sends email to configured inbox
+- “Agency Request” form:
+- Full validation
+- File upload (shop sign image)
+- Rate limit
+- Sends multipart email with attachment
+- Contact section supports clickable phone/email links and map actions.
+
+### 4.13 PWA, Session, and Client Behavior
+
+- Install prompt and iOS-specific add-to-home guidance.
+- Standalone mode support (`display: standalone`).
+- Service worker cache versioning (`BUILD`), safe update activation.
+- Navigation fallback for offline shell.
+- Static asset cache normalization to avoid duplicate cache entries.
+- Keep-login behavior with remember cookie + server session restore.
+- Logout only on explicit action (as configured by auth/session policy).
+
+### 4.14 Observability and Error Handling
+
+- Global server error handlers for fatal/exception warnings.
+- Structured API error responses with `error_id` on server failures.
+- Client error logger endpoint for JS/API failures.
+- Business activity logs (`user_activity_logs`) with Persian message lines.
+- Live user session tracking (`user_sessions`).
+
+## 5) Data Model Coverage
+
+Main operational entities (created by migrations):
+
+- `users`
+- `marketers`
+- `customers`
+- `orders`
+- `order_items`
+- `order_status_logs`
+- `customer_files`
+- `inventory_unique_codes`
+- `order_item_unique_allocations`
+- `inventory_upload_logs`
+- `order_code_prices`
+- `push_subscriptions`
+- `notifications`
+- `notification_reads`
+- `sms_logs`
+- `user_activity_logs`
+- `user_sessions`
+- `otp_codes`
+
+Migrations are under `migrations/001_init.sql` to `migrations/013_order_code_prices.sql`.
+
+## 6) Complete API Surface (Public-Safe Inventory)
+
+### 6.1 Catalog and Public Form APIs (`/api`)
+
+| Path | Method | Access | Purpose |
 |---|---|---|---|
-| A2 SEO Plugin | Internal SEO controls and optimization utilities for WordPress operations. | Improved indexing consistency and crawl hygiene (anonymized). | private source: https://github.com/shiny-a2/a2-seo-plugin |
-| A2 Catalog API | Private API layer for catalog data retrieval and integration workflows. | API response stability and consistency improved (anonymized). | private source: https://github.com/shiny-a2/a2-catalog-api |
-| A2 Discount | Internal discount/business-rule engine customizations for commerce flows. | Checkout friction reduced by ~10-25% in targeted flows (anonymized). | private source: https://github.com/shiny-a2/a2-discount |
-| A2 Searchwiz Product API | Search/product API bridge for internal integrations and controlled exposure. | Search response quality/latency improvements observed (anonymized). | private source: https://github.com/shiny-a2/a2-searchwiz-product-api |
-| A2 CRM Plugin | Modular CRM plugin for sales operations, reporting, and workflow management. | Operator workflow efficiency improved ~20-40% (anonymized). | private source: https://github.com/shiny-a2/a2-crm-plugin |
-| A2 Excel Price Sync | Controlled Excel-to-system price synchronization utilities. | Manual pricing ops reduced ~25-45% (anonymized). | private source: https://github.com/shiny-a2/a2-excel-price-sync |
-| JewelTimeCo WebApp | PWA catalog and ordering web app with CRM-lite operational tooling. | Perceived speed and operational stability improved ~30-50% (anonymized). | private source: https://github.com/shiny-a2/jeweltimeco-webapp |
-| MU Plugins Umbrella | Internal bundle repository containing the complete MU plugin deployment set. | Operational release coordination improved (anonymized). | private source: https://github.com/shiny-a2/mu-plugins |
-| A2 Admin/AJAX Guard (MU) | Safe throttles for heavy admin-ajax actions; no UI/UX changes on front. | Abuse/error-path exposure reduced through hardening controls (anonymized). | private source: https://github.com/shiny-a2/mu-a2-admin-ajax-guard |
-| A2 Category Asset Guard (MU) — Safe Core-Preserved | Aggressive asset slimming ONLY on WooCommerce product category archives, while NEVER breaking core CSS (Woodmart/Elementor/Woo/wp-block). Kills jsdelivr/confetti, Woolentor quickview+slick, YITH WRVP, Waitlist assets + ghost overlay, Bdthemes Element Pack assets, and (optionally) Elementor widget CSS safely. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-asset-guard-category |
-| A2 Batch Processing Guard | کاهش فشار WC BatchProcessingController روی Action Scheduler در هاست اشتراکی. | Abuse/error-path exposure reduced through hardening controls (anonymized). | private source: https://github.com/shiny-a2/mu-a2-batchprocessing-guard |
-| A2 - BEAR Speed Booster (Shared Hosting) | سبک‌سازی پنل BEAR و کم‌کردن فشار DB/CPU روی هاست اشتراکی. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-bear-speed |
-| A2 Brand Hubs (Categories, MU) — Price Range + Luxury UI + Filters + History v2.3.0 | Brand hub shortcodes for product categories under swiss-watches & japanese-watches. Cached daily price ranges (currency-aware) + counts, luxury liquid-glass UI, search + letter + price filter, category description excerpt, robust history-link resolver with admin refresh. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-brand-hubs-mu |
-| A2 WooLentor Slider UI v1.3.2 (Gradient Flip + Mobile Cover Fit) | WooLentor slick sliders: transparent wrapper, 5px gap, REAL equal-height (flex track), stable title/price height, better mobile image alignment (no random side gaps), dots below, price colors, sale badge. Patch: remove white content background (ht-product-content-2-up) + match Elementor swiper bullets with this dots style. | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-carousel-change-design |
-| A2 Offcanvas Cart Drawer (MU) | Lightweight left off-canvas cart drawer with gold glass UI and smart open-on-add. | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-cart-offcanvas |
-| A2 Strip unique_user_id Cookie on Cacheable Pages (MU) — Hardened | Removes Set-Cookie: unique_user_id=... for guest/public pages so LSCache can HIT on desktop. Keeps other cookies intact. No Fatal on early bootstrap. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-cokie-warmup |
-| A2 Smart Crawler (MU) — LiteSpeed-like Warm Queue v1.3.0 | Backend queue crawler with safe batching, concurrency, pause/resume, reports, filters (products/categories/others), and auto-start after LiteSpeed purge. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-crawler |
-| A2 CRM Report Debugger (MU) | Lightweight diagnostics for CRM range report data availability. | Operational workflow consistency improved ~15-40% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-crm-report-debugger |
-| A2 Offline Admin-Only Payment Gateways [MU] | Adds WooCommerce payment methods usable ONLY in wp-admin (Add/Edit Order). Hidden from Checkout. Includes: دیجی‌کالا + کارتخوان مغازه. | Operational workflow consistency improved ~15-40% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-digikala-gateway |
-| A2 Egress Assets Firewall (Front) | Monitor/Block external JS/CSS asset URLs (script/style src) on frontend. | Abuse/error-path exposure reduced through hardening controls (anonymized). | private source: https://github.com/shiny-a2/mu-a2-egress-assets-firewall |
-| A2 Egress Blocklist (MU) | فقط مقاصد مشخصِ خارجی را می‌بندد (Blocklist). Fail-fast برای جلوگیری از کندی. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-egress-firewall-adminspeed |
-| A2 Fast Archive Filters (AJAX Modal) — MU | Fast, category-aware AJAX modal filters for WooCommerce archives. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-fast-archive-filter-modal |
-| A2 Front Perf Guard (MU) | Safe front-end performance guards (YITH views throttling, bot skips). | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-front-perf-guard |
-| A2 Googlebot Render Fix (MU) | Make image loading robust for Googlebot/Inspection by disabling lazy load and rewriting lazy data-src into src. | - | private source: https://github.com/shiny-a2/mu-a2-googlebot-render-fix |
-| A2 Home Watch Category Buttons (Shortcode) — WebP Icons | 4 glass CTA buttons for homepage linking to watch categories (Men/Women/Set/Kids) with WebP icons. | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-home-watch-ctas |
-| A2 Import Safe Mode (MU) | Detects WP All Import runtime requests and exposes a shared helper for heavy MU plugins to defer expensive work. | - | private source: https://github.com/shiny-a2/mu-a2-import-safe-mode |
-| A2 Infinite Scroll (Fragment + Cache-Friendly) — MU | Fast infinite scroll for Woo archives & Elementor product lists by fetching lightweight fragments (?a2_is=1) and avoiding cookie sends. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-infinite-scroll-fragment |
-| A2 Mobile Liquid Glass Header + Footer (MU) — Offset Fix + Footer Gold Tint v1.1.5 | Mobile liquid glass header + sticky bottom nav + final footer with safe-area + FIRST-FRAME stable content offset. Footer hard-locked. Footers match header gold tint (targets Elementor inner wrappers). Social icons gold+glassy. | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-mobile-header-fix |
-| A2 Mobile Offcanvas Menu (Javaherian) | Mobile right off-canvas menu (50% width) with light gold glass, LEFT-side subtle blur only (no dark overlay), fast early-loaded handlers, and accessible collapsible submenus. Loads "فهرست اصلی". | - | private source: https://github.com/shiny-a2/mu-a2-mobile-offcanvas-menu |
-| A2 Mobile Sticky Buy Bar (MU) — Bulletproof Renderer (Patched) | Mobile sticky buy bar for single product pages. Multi-hook injection + anti-hide safeguards + desktop test via ?a2msb=1 (DESKTOP HIDDEN by default) | Abuse/error-path exposure reduced through hardening controls (anonymized). | private source: https://github.com/shiny-a2/mu-a2-mobile-sticky-buybar |
-| A2 MU Fullpage Micro-Cache | Safe micro-cache for anonymous product pages to reduce Elementor/DB load. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-mu-fullpage-microcache |
-| A2 OpenAI Diagnostics (MU) — No SSH Shared Host Test Suite | DNS/TLS/HTTP diagnostics + OpenAI endpoint smoke tests (models, responses, embeddings, moderations, files). Admin-only. Does NOT store API key. | - | private source: https://github.com/shiny-a2/mu-a2-openai-test |
-| A2 Order Fix Box (Replace / Shipping / Price Correction) - No Gateway Touch v1.7.0 | باکس ادمین برای (۱) تعویض آیتم با یک/چند محصول جدید، (۲) افزودن حمل اضافه، (۳) اصلاح قیمت همان آیتم. بدون تغییر وضعیت/درگاه. + ثبت داخلی «دریافتی خارج از درگاه» و تفکیک باقی‌مانده (درگاه vs کارت‌به‌کارت). دارای اسنپ‌شات و Undo. | Operational workflow consistency improved ~15-40% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-order-replacement-box |
-| A2 Perf Logger (MU) — Pinpoint Edition | Pinpoint slow/heavy requests (cart/search/add-to-cart) with DB table + cookie/header signals. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-perf-logger |
-| a2-post-change-price | other | - | private source: https://github.com/shiny-a2/mu-a2-post-change-price |
-| A2 PRDCTFLTR Guard (MU) | Reduce heavy adoptive filter precision for bots/LSCWP warmups. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-prdctfltr-guard |
-| A2 Product Search Overlay (Shortcode) | Golden liquid-glass overlay live product search (title-only) + landing page results. Excludes out-of-stock and no-price/call-for-price. Shows total found. Discount prices are strictly 2-line (old red striked, new green). Adds "مشاهده تمام نتایج" when limited. | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-product-search-overlay |
-| A2 Query Guard (MU) | Conservative WP_Query optimizations for front-end product widgets. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-query-guard |
-| A2 Recover SMS MU | Lightweight abandoned cart/checkout recovery SMS + pending->failed enforcement. | - | private source: https://github.com/shiny-a2/mu-a2-recover-sms-mu |
-| A2 Register wc-deliver Order Status | Re-registers custom order status wc-deliver so old orders become visible again. | Operational workflow consistency improved ~15-40% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-register-wc-deliver-status |
-| A2 REST Shield (MU) | Reduce REST overhead by short-circuiting Elementor template queries during REST (guest) except wcpe; add small endpoint caching. | Abuse/error-path exposure reduced through hardening controls (anonymized). | private source: https://github.com/shiny-a2/mu-a2-rest-shield |
-| a2-reward-box | ui | - | private source: https://github.com/shiny-a2/mu-a2-reward-box |
-| a2-rewards | ui | - | private source: https://github.com/shiny-a2/mu-a2-rewards |
-| A2 Searchwiz Allowlist Firewall (MU) | Searchwiz-IP firewall: allow crawl/API routes, hard-block cart/add-to-cart and sensitive paths. | Abuse/error-path exposure reduced through hardening controls (anonymized). | private source: https://github.com/shiny-a2/mu-a2-searchwiz-cart-block |
-| A2 Smart FAQ (MU) — Auto Inject Accordion v1.0.3 | Automatically injects a new FAQ accordion on WooCommerce single product pages (no shortcode). Priority: .a2-pdp-accordion -> Elementor accordion -> fallback anchor. | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-smart-faq |
-| A2 Style DNA Similar (MU) — Fast-Priority Similar Products v1.0.34 | Similar products for PDP via shortcode. Uses per-product DNA signature (meta) + transient cache. Auto-sign on PDP load + background backfill (200/batch) + lazy-sign capped. Smart refresh: when cache expires, reuse snapshot if fingerprints unchanged; else reuse cached candidate_ids + reuse cached scoring per-candidate (only changed candidates are rescored). | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-style-dna-similar |
-| A2 SnappPay Top Bar (MU) — Bulletproof Header Inject (No Conflicts) | Inserts a thin glassy SnappPay bar INSIDE the Elementor mobile header section (elementor-element-7b9a0260). No header offset, no buybar/footer conflicts. | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-topbar |
-| A2 Unique User Cookie (JS Setter) — Cache Friendly | Sets unique_user_id via client-side JS on public pages to preserve full-page cache. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-a2-unique-user-cookie-js |
-| A2 Watch Finder (MU) - Javaherian | Gold-glass AJAX multi-step watch finder wizard + results landing (/watch-finder) with mini filter bar, scoped brands from actual results, and VIP interleave. | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-watch-finder |
-| A2 WC Bulk Status Restore (MU) | Restores missing WooCommerce order bulk actions: Cancelled, Failed, Delivered/Completed-like (wc-deliver if exists). | Abuse/error-path exposure reduced through hardening controls (anonymized). | private source: https://github.com/shiny-a2/mu-a2-wc-bulk-status-restore |
-| A2 Order Ops Meta (MU) — DB-First Bulletproof Modal + Columns | DB-first order ops fields with modal UI in Woo orders list. Saves to custom DB table + adds order note with saving user. Renders columns (Legacy + HPOS) from DB. Stock location dropdown + add option. Bulletproof header lock. | Operational workflow consistency improved ~15-40% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-woo-details-exel |
-| A2 Wrist Fit (MU) — Liquid Glass Fit Modal v1.2.3 | Wrist circumference modal + fit calculation. Uses pa_سایز-قاب as dial size and estimates case size (+2.5mm per side) for fit and camera visualization. | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-a2-wrist-fit |
-| burst-rest-api-optimizer | performance | - | private source: https://github.com/shiny-a2/mu-burst-rest-api-optimizer |
-| Disable WC Store API for Guests | Blocks WooCommerce Store API endpoints for non-logged-in users to reduce CPU | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-disable-wc-store-api |
-| Elementor Safe Mode | Safe Mode allows you to troubleshoot issues by only loading the editor, without loading the theme or any other plugin. | - | private source: https://github.com/shiny-a2/mu-elementor-safe-mode |
-| MU Admin + Action Scheduler Core (Javaherian) | Consolidated admin speed + Action Scheduler tuning + WC Admin disable. Replaces older scattered configs. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-mu-admin-as-core |
-| MU Archive Performance (Javaherian) | Sale products cache + sale-page query optimization + move call-for-price products last. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-mu-archive-performance |
-| MU Confetti Disabled (Javaherian) | Fully disables confetti libraries and provides no-op fallbacks to avoid console errors. | - | private source: https://github.com/shiny-a2/mu-mu-confetti-disable |
-| MU Persian Digits (Prices + Sale Badges) | Converts only price and sale badge digits to Persian (front-end). | User-flow completion and engagement improved ~10-30% (anonymized). | private source: https://github.com/shiny-a2/mu-mu-digits-price-badge |
-| MU Options Autoload Guard (Javaherian) | Prevent transients from being autoloaded + optional threshold alert. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-mu-options-autoload-guard |
-| MU Transient Maintenance (Javaherian) | Lightweight preventive cleanup for known transient storms (wc_related, yith_wrvp, wc_product_loop) + optional expired cleanup. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-mu-transient-maintenance |
-| MU Transient Storm Guard (Javaherian) | Prevent transient explosions only when they exceed safe thresholds. | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-mu-transient-storm-guard |
-| Site CPU Hotfix | Reduce front-end background requests safely | Latency/load efficiency improved ~20-80% depending on route and traffic profile (anonymized). | private source: https://github.com/shiny-a2/mu-site-cpu-hotfix |
+| `api/brands.php` | GET | Public | Brand list and product counts |
+| `api/products.php` | GET | Public | Brand products, in-brand search/sort, stock/price enrichment |
+| `api/product.php` | GET | Public | Single product detail with stock/reserved summary |
+| `api/gallery.php` | GET | Public | Product gallery image list |
+| `api/search.php` | GET | Public | Global product search |
+| `api/submit_order.php` | POST | Public/Auth-aware | Create order, reserve unique codes, email + template SMS hooks |
+| `api/submit_contact.php` | POST | Public | Contact form email |
+| `api/submit_agency.php` | POST | Public | Agency request form with attachment |
+
+### 6.2 Authentication and Session (`/api/v2`)
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/auth_request.php` | POST | Public | Request OTP (Kavenegar verify/lookup) |
+| `api/v2/auth_verify.php` | POST | Public | Verify OTP, create session, set role |
+| `api/v2/auth_admin_hint.php` | POST | Public | Check whether admin password login is available for mobile |
+| `api/v2/auth_password.php` | POST | Public (admin mobile only) | Password-based admin login |
+| `api/v2/me.php` | GET | Session | Session identity + role + profile + password change flag |
+| `api/v2/password_change.php` | POST | Admin | Change admin password / clear first-login flag |
+| `api/v2/logout.php` | POST | Session | Logout + remember-cookie clear |
+
+### 6.3 Profile and Customer Self-Service
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/profile_update.php` | POST | Guest/Customer/Marketer/Admin-with-marketer | Update allowed profile fields |
+| `api/v2/customer_lookup.php` | GET | Public | Auto-fill customer info by mobile |
+| `api/v2/customer_orders.php` | GET | Customer/guest mobile | List own orders |
+| `api/v2/customer_files.php` | GET | Customer/guest mobile | List own files |
+| `api/v2/file_download.php` | GET | Role-aware | Secure file download authorization |
+
+### 6.4 Dashboard and Reporting
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/dashboard_summary.php` | GET | Admin/Marketer | KPI cards, recent orders, top marketers |
+| `api/v2/dashboard_admin_extras.php` | GET | Admin | Top brands and top products datasets |
+| `api/v2/dashboard_marketers.php` | GET | Admin | Marketer performance list |
+| `api/v2/dashboard_orders.php` | GET | Privileged | Legacy paged order list/filter |
+| `api/v2/dashboard_stats.php` | GET | Privileged | Legacy aggregate stats |
+| `api/v2/accountant_orders.php` | GET | Admin/Accountant/Marketer | Managed invoice table data + totals |
+
+### 6.5 Orders and Invoice Operations
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/order_status_update.php` | POST | Admin/Accountant | Update status, log, notifications, inventory side-effects |
+| `api/v2/order_sepidar_update.php` | POST | Admin/Accountant | Set/edit Sepidar number and trigger inventory consume check |
+| `api/v2/order_delete.php` | POST | Admin/Accountant | Delete order |
+| `api/v2/order_export.php` | GET | Role-aware | Generate downloadable `.xlsx` order file (with image embedding and unique codes) |
+
+### 6.6 Customer/User Management
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/customer_create.php` | POST | Admin/Accountant/Marketer | Create/update customer and attach consultant |
+| `api/v2/customers_list.php` | GET | Admin/Accountant/Marketer | Search/list customers (marketer-scoped when needed) |
+| `api/v2/admin_customer_get.php` | GET | Admin | Customer detail + purchase stats |
+| `api/v2/admin_customer_update.php` | POST | Admin | Update customer fields + rank |
+| `api/v2/user_create.php` | POST | Admin | Create marketer/admin/accountant users |
+| `api/v2/marketer_create.php` | POST | Admin | Legacy marketer creation endpoint |
+| `api/v2/marketers_public.php` | GET | Public | Active consultant list for selectors |
+
+### 6.7 Inventory, Scanner, Allocation
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/inventory_upload.php` | POST | Admin/Accountant | Upload unique-code stock and optional prices, sync Woo |
+| `api/v2/inventory_scan_lookup.php` | GET | Admin/Accountant/Marketer | Resolve scanned unique code to product/inventory state |
+| `api/v2/product_trace.php` | GET | Admin/Accountant | Trace unique code to invoice/product status |
+| `api/v2/allocate_tool.php` | POST | Admin | Rank-based oversold allocation analysis |
+
+### 6.8 File Management (Operational)
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/accountant_upload.php` | POST | Admin/Accountant/Marketer | Upload file for customer |
+| `api/v2/accountant_files.php` | GET | Admin/Accountant/Marketer | List operational file records |
+| `api/v2/accountant_file_delete.php` | POST | Admin/Accountant/Marketer (scoped) | Delete uploaded file |
+
+### 6.9 Push Notifications
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/push_public_key.php` | GET | Public | VAPID public key |
+| `api/v2/push_subscribe.php` | POST | Auth | Store/activate push subscription |
+| `api/v2/push_unsubscribe.php` | POST | Auth | Deactivate push subscription |
+| `api/v2/push_inbox.php` | POST | SW endpoint-based | Pull unread notifications for push event |
+| `api/v2/notifications_unread.php` | GET | Auth | In-app unread notifications |
+| `api/v2/notifications_mark_read.php` | POST | Auth | Mark notifications as read |
+| `api/v2/push_send.php` | POST | Admin | Targeted push send by role/rank/recipient |
+
+### 6.10 SMS Operations
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/recipients_list.php` | GET | Admin/Marketer | Recipient listing by role with search/rank |
+| `api/v2/sms_send.php` | POST | Admin | Bulk/single SMS send via Kavenegar |
+| `api/v2/sms_logs.php` | GET | Admin | SMS history with message ID/status |
+| `api/v2/sms_status_refresh.php` | POST | Admin | Refresh delivery status from Kavenegar |
+
+### 6.11 Observability and Health
+
+| Path | Method | Access | Purpose |
+|---|---|---|---|
+| `api/v2/log_client_error.php` | POST | Public | Store client-side errors in server logs |
+| `api/v2/user_logs.php` | GET | Admin | User activity log feed |
+| `api/v2/online_users.php` | GET | Admin | Active session users |
+| `api/v2/ping.php` | GET | Public | App DB health check |
+
+## 7) Security Controls Implemented
+
+- Same-origin enforcement for state-changing endpoints.
+- HTTP method guard per endpoint.
+- Role guard per endpoint.
+- Input normalization/validation for mobile, ids, dates, enums.
+- Rate limiting on sensitive/public forms (`otp`, `contact`, `agency`).
+- Security headers:
+- `X-Content-Type-Options`
+- `X-Frame-Options`
+- `Referrer-Policy`
+- `Permissions-Policy`
+- Optional HSTS over HTTPS
+- Secure session and remember-cookie options:
+- `HttpOnly`, `SameSite=Lax`, secure cookie on HTTPS
+- Structured server error logging with correlation IDs.
+
+## 8) Performance and Reliability
+
+- JSON cache for stable catalog endpoints with ETag support.
+- Frontend GET caching layer for fast route transitions.
+- Lazy image loading and bounded list rendering.
+- Service worker:
+- Versioned cache
+- Safe activation
+- Navigation fallback
+- Static cache normalization
+- Scanner pipeline optimized with native detector + fallback strategy.
+
+## 9) Configuration (Non-Secret Key Map)
+
+Set these in `config.php` (copy from `config.sample.php`):
+
+- DB and app DB:
+- `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASS`, `WP_PREFIX`
+- `JT_APP_DB_HOST`, `JT_APP_DB_NAME`, `JT_APP_DB_USER`, `JT_APP_DB_PASS`
+- App/session:
+- `JT_APP_SECRET`, `JT_SESSION_COOKIE`, `JT_SESSION_TTL`
+- Optional remember: `JT_REMEMBER_COOKIE`, `JT_REMEMBER_TTL`
+- UI/assets:
+- `JT_ASSET_VER`, `SITE_TITLE`, `SITE_BRAND`, `ITEMS_PER_PAGE`
+- Email:
+- `ORDER_TO_EMAIL`, `ORDER_FROM_EMAIL`, `ORDER_FROM_NAME`
+- SMS/Kavenegar:
+- `JT_KAVENEGAR_API_KEY`, `JT_KAVENEGAR_TEMPLATE`, `JT_KAVENEGAR_SENDER`
+- Push/VAPID:
+- `JT_VAPID_PUBLIC_KEY`, `JT_VAPID_PRIVATE_KEY_B64`, `JT_VAPID_SUBJECT`
+
+## 10) Setup and Run
+
+1. Copy `config.sample.php` to `config.php` and fill values.
+2. Ensure DB schema is up-to-date by running migration files in `migrations/`.
+3. Ensure PHP extensions required by enabled features are available:
+- `pdo_mysql`, `mbstring`, `curl`, `openssl`, `zip`, `dom`, `gd`
+4. Deploy with web root on project folder and serve `index.php`.
+5. Validate:
+- `api/v2/ping.php`
+- login (OTP)
+- dashboard access by role
+- inventory upload
+- push/SMS test paths.
+
+## 11) Repository Safety Notes
+
+- Keep `config.php` and any environment-secret files out of public commits.
+- Do not commit runtime logs, SQL dumps with production data, or private keys.
+- This README is intentionally exhaustive on functionality and intentionally silent on secrets.
