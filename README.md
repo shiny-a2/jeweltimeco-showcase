@@ -28,6 +28,15 @@ A production-oriented PWA web application for catalog, ordering, and admin/CRM-l
 
 This repository is documentation-only and does not expose source code.
 
+## Latest Public Update (2026-02-23)
+- Documentation synced with the current private production baseline.
+- Product detail improvements:
+  - Native share action (system share sheet when available).
+  - Copy-link fallback for environments without `navigator.share`.
+- Navigation reliability improvements:
+  - Hardened restore path for returning from product detail to brand list context.
+  - Cross-browser/PWA scroll restoration notes documented.
+
 ## Project Index
 The table below is a complete index of private-source repositories used across the portfolio.
 | Project | Purpose | KPI (Anonymized) | Source |
