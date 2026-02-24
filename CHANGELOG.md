@@ -5,6 +5,10 @@
 - Added fallback behavior: when sampled/scanned unique code is not usable, system auto-reserves the first available unique code from the same order code.
 - Improved resilience for mixed/legacy allocation table schemas (column and enum compatibility guards).
 - Kept shortage behavior explicit: if inventory is exhausted, order lines are still captured with warning and without final unique code assignment.
+- Added full transactional invoice editing in dashboard lists (admin/accountant): change customer, add/remove items, and edit quantities.
+- Invoice customer reassignment now updates invoice ownership attribution cleanly for old/new customer views and aggregates.
+- Reservation allocations are rebuilt during invoice edit save to keep unique-code inventory consistency.
+- Excel invoice export remains synchronized because export is generated from current edited DB rows.
 
 ## 2026-02-23
 - Synced public documentation with latest private release baseline.

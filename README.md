@@ -149,6 +149,11 @@ It is not only a storefront; it is a complete operational system for sales, acco
 
 ### 4.6 Invoice Management and Accounting
 
+- Full invoice edit modal (admin/accountant): update customer, add/remove products, edit quantities.
+- Transactional save recalculates totals and customer ownership to avoid stale attribution when an invoice moves to another customer.
+- Item prices are re-evaluated server-side from order-code pricing on every invoice edit save.
+- Reservation rows are rebuilt on invoice edits to preserve inventory allocation integrity.
+
 - Managed invoice table with:
 - Order number
 - Sepidar invoice number
