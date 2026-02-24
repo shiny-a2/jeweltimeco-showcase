@@ -195,6 +195,9 @@ It is not only a storefront; it is a complete operational system for sales, acco
 - Falls back to ZXing when needed
 - Scanned unique code resolves to order code and product
 - Auto-add behavior with reservation checks
+- Reservation fallback policy:
+- If the sampled/scanned unique code is unavailable, mismatched, or already assigned, the system attempts to reserve the first available unique code from the same order code.
+- Only when no allocatable unique code remains, the line is stored as warning-based/manual-without-code.
 - Handles already-assigned, mismatch, and shortage scenarios
 - Supports manual-without-code allocation when fully reserved and user confirms
 - Product trace tool (admin/accountant):
