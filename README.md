@@ -547,6 +547,13 @@ Set these in `config.php` (copy from `config.sample.php`):
 
 ## 12) Latest Update Notes
 
+### v2026.2.42
+
+- Fixed add-to-order issue from quantity modal on some browsers/webviews.
+- Duplicate-item flow for marketers is now resilient when browser `prompt` is blocked.
+- Added fallback confirmation path so add action does not silently fail.
+- Bumped deploy cache versions (`JT_ASSET_VER`, `index.php`, `sw.js`, `manifest`).
+
 ### v2026.2.41
 
 - Inventory visibility rule adjusted:
