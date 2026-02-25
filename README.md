@@ -27,6 +27,18 @@ JewelTime WebApp is a Persian/RTL, mobile-first **PWA** that combines:
 
 It is not only a storefront; it is a complete operational system for sales, accounting, and management workflows.
 
+## Latest Public Update (2026-02-25)
+- Product trace panel upgraded with dual lookup modes:
+  - Unique-code trace (single unit-level status and invoice context).
+  - Order-code trace (all related invoices/customers for the same product code).
+- Added order-code sales visibility in trace results:
+  - Invoice number, status, customer, consultant, quantity, and line totals.
+- Added inventory summary block in order-code trace:
+  - Total, reserved, consumed, and available counts.
+- Reservation lifecycle behavior documented and aligned with operations:
+  - Reserve on order submit/edit.
+  - Consume only when both conditions are met: status becomes `invoiced` and accounting invoice number is present.
+
 ## 2) Technology Stack
 
 - Backend: PHP (procedural endpoints + shared libs)

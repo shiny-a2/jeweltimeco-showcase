@@ -22,6 +22,10 @@
 - Invoice customer reassignment now updates invoice ownership attribution cleanly for old/new customer views and aggregates.
 - Reservation allocations are rebuilt during invoice edit save to keep unique-code inventory consistency.
 - Excel invoice export remains synchronized because export is generated from current edited DB rows.
+- Added public notes for the new product-trace order-code lookup flow.
+- Documented trace output scope: invoice/customer/consultant level breakdown and totals.
+- Added inventory summary reporting notes for order-code trace (total/reserved/consumed/available).
+- Clarified reservation lifecycle rules for invoicing transition (reserve vs consume conditions).
 
 ## 2026-02-23
 - Synced public documentation with latest private release baseline.
