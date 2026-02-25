@@ -8,6 +8,7 @@
   - `MU Admin + Action Scheduler Core v1.1.0`
   - `A2 CRM Plugin v3.2.1`
 - Added a clear incident-to-mitigation summary for employer-facing review.
+- Refined legacy plugin catalog references to English-only wording in `README.md` and `docs/PROJECT_INDEX.md`.
 
 ## 2026-02-24
 - Stabilized unique-code reservation flow for scanned orders.

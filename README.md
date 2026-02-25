@@ -62,7 +62,7 @@ It is not only a storefront; it is a complete operational system for sales, acco
 - Product title
 - SKU
 - Reference attribute
-- Order-code attribute (`pa_کد-سفارش`)
+- Order-code attribute (`custom order-code attribute slug`)
 - Product cards include:
 - Thumbnail
 - Title
