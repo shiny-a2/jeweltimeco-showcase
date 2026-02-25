@@ -1,6 +1,8 @@
 # Changelog
 
 ## 2026-02-25
+- Fixed a false out-of-stock edge case in list/search/detail views for products with multiple order-code terms.
+- Added resilient order-code selection fallback (prefers codes with available inventory).
 - Added an operational hardening note for the plugin layer supporting the web app admin stack.
 - Documented synchronized private releases:
   - `A2 Fast Archive Filters (MU) v1.3.8`
