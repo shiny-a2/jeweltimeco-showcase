@@ -547,6 +547,14 @@ Set these in `config.php` (copy from `config.sample.php`):
 
 ## 12) Latest Update Notes
 
+### v2026.2.44
+
+- Fixed add-to-order button click detection when event target is a text node in some browsers.
+- Added robust event-target normalization for:
+- global add button delegation (`[data-additem]`)
+- brand card click/pointer handlers (to avoid accidental miss/override)
+- Bumped cache-bust version (`JT_ASSET_VER`, `index.php`, `sw.js`, `manifest`).
+
 ### v2026.2.43
 
 - Fixed quantity-modal add flow to avoid hidden duplicate-prompt blockers.
