@@ -547,6 +547,15 @@ Set these in `config.php` (copy from `config.sample.php`):
 
 ## 12) Latest Update Notes
 
+### v2026.2.47
+
+- Added one-time per-build PWA cache reset guard in `index.php`:
+- unregister old service workers
+- clear `jt-pwa-v*` caches
+- reload once to ensure fresh assets are loaded
+- This prevents devices from staying on stale JS/CSS builds after deploy.
+- Bumped cache-bust version (`JT_ASSET_VER`, `index.php`, `sw.js`, `manifest`).
+
 ### v2026.2.46
 
 - Added hard fallback path for add-to-order button handling:
