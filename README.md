@@ -547,6 +547,14 @@ Set these in `config.php` (copy from `config.sample.php`):
 
 ## 12) Latest Update Notes
 
+### v2026.2.46
+
+- Added hard fallback path for add-to-order button handling:
+- delegated click handler + direct per-button binding (`click` and `touchend`)
+- Exposed safe helper hooks for add-button invocation in strict webviews.
+- Strengthened add-button layering (`z-index`/`pointer-events`) to avoid hidden overlays.
+- Bumped cache-bust version (`JT_ASSET_VER`, `index.php`, `sw.js`, `manifest`).
+
 ### v2026.2.45
 
 - Rebuilt product-card DOM structure for reliable click behavior:
