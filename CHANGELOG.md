@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-02-25
+- Added an operational hardening note for the plugin layer supporting the web app admin stack.
+- Documented synchronized private releases:
+  - `A2 Fast Archive Filters (MU) v1.3.8`
+  - `A2 Order Fix Box (MU) v1.7.1`
+  - `MU Admin + Action Scheduler Core v1.1.0`
+  - `A2 CRM Plugin v3.2.1`
+- Added a clear incident-to-mitigation summary for employer-facing review.
+
 ## 2026-02-24
 - Stabilized unique-code reservation flow for scanned orders.
 - Added fallback behavior: when sampled/scanned unique code is not usable, system auto-reserves the first available unique code from the same order code.

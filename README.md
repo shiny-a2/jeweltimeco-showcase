@@ -3,6 +3,13 @@
 Public-safe, full capability documentation for the JewelTime production web app.
 This README intentionally includes feature and architecture details, but no secrets.
 
+## Operational Hardening Update (2026-02-25)
+- Resolved an admin runtime conflict that blocked SEO redirection authoring in the WordPress backend.
+- Hardened same-origin admin AJAX behavior for host-alias reliability.
+- Tightened plugin asset scoping in admin order workflows to reduce cross-module collisions.
+- Synchronized private plugin releases and documented rollout details in:
+  - `docs/RELEASE_2026-02-25_PLATFORM_HARDENING.md`
+
 ## 1) Product Definition
 
 JewelTime WebApp is a Persian/RTL, mobile-first **PWA** that combines:
