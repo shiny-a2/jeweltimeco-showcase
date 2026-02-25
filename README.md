@@ -547,6 +547,14 @@ Set these in `config.php` (copy from `config.sample.php`):
 
 ## 12) Latest Update Notes
 
+### v2026.2.43
+
+- Fixed quantity-modal add flow to avoid hidden duplicate-prompt blockers.
+- For marketer duplicate items inside quantity modal:
+- The modal now shows duplicate notice with current count.
+- Entered quantity is applied directly as incremental quantity on confirm.
+- Added cache-bust version bump (`JT_ASSET_VER`, `index.php`, `sw.js`, `manifest`).
+
 ### v2026.2.42
 
 - Fixed add-to-order issue from quantity modal on some browsers/webviews.
