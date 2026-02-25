@@ -547,6 +547,13 @@ Set these in `config.php` (copy from `config.sample.php`):
 
 ## 12) Latest Update Notes
 
+### v2026.2.48
+
+- Fixed runtime `ReferenceError: normalizeDigits is not defined` on add-to-order flow.
+- Removed cross-scope dependency in `normalizeOrderCodeValue` by inlining digit normalization.
+- Prevents add-button flow from crashing before quantity modal/cart actions.
+- Bumped cache-bust version (`JT_ASSET_VER`, `index.php`, `sw.js`, `manifest`).
+
 ### v2026.2.47
 
 - Added one-time per-build PWA cache reset guard in `index.php`:
