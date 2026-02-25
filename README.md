@@ -547,6 +547,14 @@ Set these in `config.php` (copy from `config.sample.php`):
 
 ## 12) Latest Update Notes
 
+### v2026.2.45
+
+- Rebuilt product-card DOM structure for reliable click behavior:
+- Add button is no longer nested inside product link (`button` inside `a` removed).
+- Product link and add button are now separate controls (standards-compliant).
+- Updated brand-page card navigation handlers to use the new product-link selector.
+- Bumped cache-bust version (`JT_ASSET_VER`, `index.php`, `sw.js`, `manifest`).
+
 ### v2026.2.44
 
 - Fixed add-to-order button click detection when event target is a text node in some browsers.
