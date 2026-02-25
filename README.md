@@ -547,6 +547,14 @@ Set these in `config.php` (copy from `config.sample.php`):
 
 ## 12) Latest Update Notes
 
+### v2026.2.49
+
+- Fixed finalize-order customer dropdown stuck at loading.
+- Removed dependency on out-of-scope `renderCustomerOptions` in `openCustomerForm`.
+- Added local option renderer + timeout guard for `customers_list` fetch.
+- Enforced role guard so customer-picker dropdown is never shown to `customer` role.
+- Bumped cache-bust version (`JT_ASSET_VER`, `index.php`, `sw.js`, `manifest`).
+
 ### v2026.2.48
 
 - Fixed runtime `ReferenceError: normalizeDigits is not defined` on add-to-order flow.
