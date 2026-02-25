@@ -125,6 +125,9 @@ It is not only a storefront; it is a complete operational system for sales, acco
 - Marketer workflow:
 - Cart view remains accessible
 - Customer form is enforced during finalization flow
+- Duplicate-product guard in unfinalized cart:
+- If same product/order-code is added again, marketer gets a confirmation prompt
+- User can add incremental quantity or cancel (no duplicate row is silently added)
 - Order submission:
 - Validates payload and pricing table mapping by order code
 - Stores customer snapshot
@@ -230,7 +233,7 @@ It is not only a storefront; it is a complete operational system for sales, acco
 - Only when no allocatable unique code remains, the line is stored as warning-based/manual-without-code.
 - Handles already-assigned, mismatch, and shortage scenarios
 - Supports manual-without-code allocation when fully reserved and user confirms
-- Product trace tool (admin/accountant):
+- Product trace tool (admin/accountant/marketer):
 - Input unique code
 - Shows whether in stock, reserved, or invoiced
 - Shows linked invoice/customer/order data when consumed.
@@ -433,7 +436,7 @@ Migrations are under `migrations/001_init.sql` to `migrations/013_order_code_pri
 |---|---|---|---|
 | `api/v2/inventory_upload.php` | POST | Admin/Accountant | Upload unique-code stock and optional prices, sync Woo |
 | `api/v2/inventory_scan_lookup.php` | GET | Admin/Accountant/Marketer | Resolve scanned unique code to product/inventory state |
-| `api/v2/product_trace.php` | GET | Admin/Accountant | Trace unique code to invoice/product status |
+| `api/v2/product_trace.php` | GET | Admin/Accountant/Marketer | Trace unique code to invoice/product status |
 | `api/v2/allocate_tool.php` | POST | Admin | Rank-based oversold allocation analysis |
 
 ### 6.8 File Management (Operational)
@@ -541,3 +544,17 @@ Set these in `config.php` (copy from `config.sample.php`):
 - Keep `config.php` and any environment-secret files out of public commits.
 - Do not commit runtime logs, SQL dumps with production data, or private keys.
 - This README is intentionally exhaustive on functionality and intentionally silent on secrets.
+
+## 12) Latest Update Notes
+
+### v2026.2.40
+
+- Enabled product trace access for `Marketer` role in dashboard and API policy.
+- Added marketer duplicate-add guard in unfinalized cart:
+- Re-adding the same product triggers quantity-increment confirmation.
+- Cancel action now safely aborts duplicate add.
+- Added customer quick-select in finalize-order customer modal for:
+- `Admin`
+- `Accountant`
+- `Marketer`
+- Selecting a customer auto-fills the full customer form.
