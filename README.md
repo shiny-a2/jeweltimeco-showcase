@@ -4,6 +4,10 @@ Public-safe, full capability documentation for the JewelTime production web app.
 This README intentionally includes feature and architecture details, but no secrets.
 
 ## Operational Hardening Update (2026-02-25)
+- Added two shared-host diagnostics modules to private operations stack:
+  - A2 Security Malware Scanner (MU) v1.0.0
+  - A2 Storage Audit & Log Writers (MU) v1.1.0
+
 - Resolved an admin runtime conflict that blocked SEO redirection authoring in the WordPress backend.
 - Hardened same-origin admin AJAX behavior for host-alias reliability.
 - Tightened plugin asset scoping in admin order workflows to reduce cross-module collisions.

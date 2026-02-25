@@ -9,6 +9,9 @@
   - `A2 CRM Plugin v3.2.1`
 - Added a clear incident-to-mitigation summary for employer-facing review.
 - Refined legacy plugin catalog references to English-only wording in `README.md` and `docs/PROJECT_INDEX.md`.
+- Added two new private MU capabilities to public-safe platform documentation:
+  - `A2 Security Malware Scanner (MU) v1.0.0`
+  - `A2 Storage Audit & Log Writers (MU) v1.1.0`
 
 ## 2026-02-24
 - Stabilized unique-code reservation flow for scanned orders.
