@@ -547,6 +547,15 @@ Set these in `config.php` (copy from `config.sample.php`):
 
 ## 12) Latest Update Notes
 
+### v2026.2.41
+
+- Inventory visibility rule adjusted:
+- Product availability no longer decreases at reservation time.
+- Visible stock now decreases only by consumed (finalized) allocations.
+- Consumption trigger adjusted:
+- Reserved unique codes are consumed only after a Sepidar invoice number is set.
+- Status-only changes no longer consume inventory without Sepidar number.
+
 ### v2026.2.40
 
 - Enabled product trace access for `Marketer` role in dashboard and API policy.
