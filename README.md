@@ -28,6 +28,14 @@ JewelTime WebApp is a Persian/RTL, mobile-first **PWA** that combines:
 It is not only a storefront; it is a complete operational system for sales, accounting, and management workflows.
 
 ## Latest Public Update (2026-02-25)
+- Updated invoice Excel export schema for cleaner accounting delivery:
+  - removed duplicated Toman item columns.
+  - kept Rial-based unit/line values as the canonical export format.
+- Standardized order-code normalization to uppercase across read/write paths
+  so display and storage stay consistent (`LR` instead of lowercase variants).
+- Added marketer bulk customer onboarding flow:
+  - add-customer modal now includes template download + spreadsheet upload.
+  - single upload can create/update many customer rows with per-row validation feedback.
 - Fixed false out-of-stock visibility in product list/search/detail when products contain multiple order-code attributes.
 - Added robust order-code selection logic to prefer codes with real available inventory.
 - Product trace panel upgraded with dual lookup modes:
