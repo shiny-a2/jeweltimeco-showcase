@@ -27,7 +27,10 @@ JewelTime WebApp is a Persian/RTL, mobile-first **PWA** that combines:
 
 It is not only a storefront; it is a complete operational system for sales, accounting, and management workflows.
 
-## Latest Public Update (2026-02-25)
+## Latest Public Update (2026-05-07)
+- Opened inventory Excel upload access for the marketer role.
+- Added marketer visibility for the inventory upload action in dashboard controls.
+- Updated API authorization to accept `admin`, `accountant`, and `marketer` for inventory upload endpoint.
 - Updated invoice Excel export schema for cleaner accounting delivery:
   - removed duplicated Toman item columns.
   - kept Rial-based unit/line values as the canonical export format.

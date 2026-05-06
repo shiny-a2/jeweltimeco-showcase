@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-05-07
+- Opened inventory Excel upload access for `Marketer (Sales Consultant)` role.
+- Updated dashboard action visibility so marketers can open the inventory upload modal directly.
+- Kept server-side authorization aligned with UI so marketer uploads are accepted by API.
+
 ## 2026-02-25
 - Updated invoice Excel export format to Rial-only item pricing columns (removed duplicated Toman columns).
 - Standardized order-code normalization to uppercase across operational paths (consistent display/storage).
