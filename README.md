@@ -1,20 +1,36 @@
 # JewelTimeCo Showcase
 
-Project Status: Showcase
+Project Status: Public architecture overview
 
-Public-safe architecture documentation for a retail operations web app covering catalog browsing, assisted ordering, role-based dashboards, inventory handling, customer workflows, and internal operations.
+This repository is a narrowed, public-safe architecture overview for a retail operations web app concept covering catalog browsing, assisted ordering, role-based dashboards, inventory handling, customer workflows, and internal operations.
 
 ## Public Scope
 
-This repository should remain a curated architecture showcase. It should not include production source code, private customer/order data, provider credentials, operational logs, sensitive route tables, or internal business procedures.
+The repository should explain the shape of the system without exposing implementation details that could affect a real business operation.
 
-## Recommended Cleanup
+Safe to discuss:
 
-- Shorten feature lists to employer-readable architecture sections.
-- Remove overly specific endpoint tables and operational implementation details.
-- Keep status wording accurate: production-oriented PWA/web app support, not a claim that all modules are public or reproducible.
-- Add links to portfolio and related case studies.
+- high-level architecture;
+- role and workflow categories;
+- operational constraints;
+- public-safe diagrams;
+- anonymized engineering decisions.
+
+Not safe to publish:
+
+- production source code;
+- private customer/order data;
+- provider credentials;
+- internal endpoints;
+- route tables;
+- operational logs;
+- sensitive business procedures.
+
+## Recommended Position In Portfolio
+
+This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
 ## Portfolio
 
 https://amiraliyaghouti.com
+
