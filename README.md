@@ -30,7 +30,13 @@ Not safe to publish:
 
 This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
+## Latest Public Update (2026-06-04)
+
+- Expanded authorized bulk inventory and price update workflow to the sales consultant role.
+- Added an in-dashboard sample file download so operators can create correctly structured upload files.
+- Hardened upload handling so common header rows are ignored instead of becoming inventory data.
+- Why it matters: stock and price maintenance can now happen closer to the sales workflow while reducing file-format mistakes.
+
 ## Portfolio
 
 https://amiraliyaghouti.com
-
