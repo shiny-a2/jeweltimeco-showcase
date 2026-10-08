@@ -30,12 +30,12 @@ Not safe to publish:
 
 This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
-## Latest Public Update (2026-10-02)
+## Latest Public Update (2026-10-08)
 
-- Marketplace integrations now publish binary availability instead of internal warehouse quantities.
-- Explicit spreadsheet availability takes precedence over warehouse availability.
-- Verified synchronization preserves separate outcomes for queued inventory and provider-rejected prices.
-- Why it matters: marketplaces receive the intended selling availability while operators can distinguish submission from confirmed completion.
+- The management assistant now keeps every workbook and report route inside private, numeric-ID administrator access.
+- Unknown users, username impersonation and group chats cannot receive management prompts or generated files.
+- Regression and live read-only checks cover access decisions and valid spreadsheet generation.
+- Why it matters: operational exports remain available to the approved team without exposing private business data through the bot.
 
 ## Portfolio
 

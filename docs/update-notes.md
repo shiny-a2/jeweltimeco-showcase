@@ -1,5 +1,11 @@
 # Public Update Notes
 
+## 2026-10-08 — Private management report access
+
+- Restricted the JewelTime management assistant's menu, workbook intake, generated spreadsheets and competitor reports to private chats with explicitly allowlisted numeric Telegram identities.
+- Removed username-based trust and silent-leak paths for unknown users and group chats.
+- Added regression coverage for every configured administrator, unknown identities, username spoofing and group-chat denial; verified spreadsheet generation without sending live messages.
+
 ## 2026-10-01 — Readable price filters
 
 - Group catalogue price-range amounts in threes while users type and accept Persian and Arabic digits.
