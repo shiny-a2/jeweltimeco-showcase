@@ -30,7 +30,13 @@ Not safe to publish:
 
 This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
-## Latest Public Update (2026-10-08)
+## Latest Public Update (2026-10-12)
+
+- Added a controlled price-only release workflow for a watch catalogue across an operations app, two storefronts and connected marketplaces.
+- The workflow validates source prices, preserves stock, records private rollback snapshots and tracks marketplace confirmations before marking them complete.
+- Why it matters: a supplier price change can be applied consistently without turning a pricing task into an inventory change.
+
+## Previous Update (2026-10-08)
 
 - The management assistant now keeps every workbook and report route inside private, numeric-ID administrator access.
 - Unknown users, username impersonation and group chats cannot receive management prompts or generated files.
