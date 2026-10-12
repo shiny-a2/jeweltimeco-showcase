@@ -32,7 +32,8 @@ This repo is useful as a secondary platform architecture signal. It should not o
 
 ## Latest Public Update (2026-10-12)
 
-- Added a controlled price-only release workflow for five watch brands across an operations app, two storefronts and connected marketplaces.
+- Added a controlled price-only release workflow for six watch brands across an operations app, two storefronts and connected marketplaces.
+- Existing promotional percentages can be recalculated against the new list prices where approved.
 - The workflow validates source prices, preserves stock, records private rollback snapshots and tracks marketplace confirmations before marking them complete.
 - Why it matters: a supplier price change can be applied consistently without turning a pricing task into an inventory change.
 
