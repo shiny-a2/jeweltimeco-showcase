@@ -30,7 +30,13 @@ Not safe to publish:
 
 This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
-## Latest Public Update (2026-10-12)
+## Latest Public Update (2026-10-26)
+
+Recently imported products had valid warehouse and price records but were missing from the app because their storefront categories were incomplete. A scoped reconciliation restored their existing categories and missing prices, making the completed imports visible across the connected catalogs.
+
+The repair checked product identity before writing, kept private recovery snapshots and verified saved values without changing stock. Production catalog and synchronization readbacks confirmed the result. Browser checks covered product images, displayed prices and app search on mobile and desktop; no real order or customer message was created for testing.
+
+## Previous Update (2026-10-12)
 
 - Added a controlled price-only release workflow for six watch brands across an operations app, two storefronts and connected marketplaces.
 - Existing promotional percentages can be recalculated against the new list prices where approved.
