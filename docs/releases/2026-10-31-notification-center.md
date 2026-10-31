@@ -7,3 +7,7 @@ Receiving a push notification does not mark the message as read. The inbox check
 Validation includes sixteen database behavior checks through a SQLite adapter, a guest-denial check, forty synthetic browser checks and integration of the actual app entry, route and header at mobile and desktop widths. The read query was also checked against MariaDB. Live write/concurrency acceptance remains pending. The app's existing dark palette is preserved under both browser color preferences.
 
 The feature is committed and prepared; production deployment is awaiting owner approval. No customer broadcast or test purchase was generated.
+
+## Release update
+
+Published on 2026-11-01 together with the desktop workspace after owner approval. Public assets and unauthenticated API denial were verified. Authenticated read-state changes remain outside the production checks; the preparation-stage validation above used controlled fixtures.
