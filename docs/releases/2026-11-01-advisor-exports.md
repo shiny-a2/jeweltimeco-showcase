@@ -7,3 +7,5 @@ Download controls now show progress and actionable errors instead of silently op
 Nine isolated executions of the export endpoint passed, including generated spreadsheet validation and cross-account denial. Eighty-four browser assertions passed with mocked APIs at mobile and desktop widths. Existing ownership, guest-access and service-worker privacy tests passed as well. No customer messages or business records were created. The exact order reported by the user was not identified; live authenticated download confirmation remains pending.
 
 Status: committed and prepared for review; not deployed. Production release requires owner approval.
+
+Policy update: the owner subsequently approved exports for all dashboard-visible orders. The customer access review describes the final prepared policy; the narrower proposal above is superseded.
