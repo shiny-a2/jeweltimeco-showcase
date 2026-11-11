@@ -30,7 +30,13 @@ Not safe to publish:
 
 This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
-## Latest Public Update (2026-10-26)
+## Latest Public Update (2026-11-11)
+
+Catalog exports now resolve a missing watch brand from an unambiguous brand-specific order-code prefix. The same brand decision is used in product, stock and marketplace spreadsheets. An import guard also fills missing brand and category data for eligible watches while preserving explicit conflicting values; a scoped repair corrected one existing published product after a dry run and private recovery snapshot.
+
+Focused checks passed and a live read-only export-row check returned the expected brand. The public desktop product page showed the brand and category. An authenticated spreadsheet download and mobile or alternate-theme visual states were not verified.
+
+## Previous Update (2026-10-26)
 
 Recently imported products had valid warehouse and price records but were missing from the app because their storefront categories were incomplete. A scoped reconciliation restored their existing categories and missing prices, making the completed imports visible across the connected catalogs.
 

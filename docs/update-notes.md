@@ -1,5 +1,11 @@
 # Public Update Notes
 
+## 2026-11-11 — Consistent brand labels across catalog workflows
+
+Some imported watches carried an order code but no brand, leaving operational spreadsheets incomplete. The export flow now fills a missing brand only when the code prefix has one verified meaning. The import flow assigns an eligible watch's existing brand and category terms without replacing a conflicting explicit value. A dry-run-first, recoverable repair handled one previously published item.
+
+Focused export and import checks passed. A live read-only export-row check and a public desktop product-page check showed the expected brand. Authenticated file download and mobile or alternate-theme visual states remain outside the completed checks.
+
 ## 2026-10-08 — Private management report access
 
 - Restricted the JewelTime management assistant's menu, workbook intake, generated spreadsheets and competitor reports to private chats with explicitly allowlisted numeric Telegram identities.
