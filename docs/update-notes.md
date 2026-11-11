@@ -1,5 +1,17 @@
 # Public Update Notes
 
+## 2026-11-12 — Company hero, catalogue prices and account entry
+
+The homepage now introduces JewelTime with its own logo and the slogan «زمان جواهر است», while the Tornado red-car campaign remains in a separate brand feature. Brand carousels show current public catalogue prices, or an inquiry label where no price is available. The shop brand directory, gender links on brand archives, single product presentation and account entry were refined. The old blank login route now opens the existing account form.
+
+Live checks covered the homepage, shop, Tornado archive, a product and account entry at desktop and mobile widths in light and dark preferences. Prices, page headings, brand links, gallery selection, carousel movement, mobile navigation and password visibility were checked. A transient mobile product layout shift settled without horizontal overflow. Authenticated account pages were not tested, and no purchase, message or login was submitted.
+
+## 2026-11-12 — Official brand campaigns and model browsing
+
+The corporate watch storefront now shows official brand campaign imagery and logos, with Tornado's red-car watch banner on the homepage and its brand page. Selecting a brand reveals its available women's and men's watch models in manual carousels. The presentation uses current public catalogue data, so missing categories do not become invented products. Shop, brand and contact pages also share a cleaner visual treatment.
+
+Live checks covered the homepage, Tornado archive, shop and contact pages at mobile and desktop widths in light and dark browser preferences. The checks confirmed loaded banners, brand selection, both gender rows where present, carousel movement, mobile navigation, search focus, one page heading and no horizontal overflow. No purchase or inquiry was created. Suitable official banners were not verified for every brand, so those tabs continue with logos and available models.
+
 ## 2026-11-11 — Corporate multi-brand storefront
 
 The public WooCommerce homepage previously centered a single watch and shopping message. It now introduces JewelTime as a company with multiple watch brands, gives each of ten brand pages a clear entry point, and makes the catalogue and representation form easier to find. Navy and gold follow the existing site identity, while product photography stays in the catalogue section.

@@ -30,7 +30,15 @@ Not safe to publish:
 
 This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
-## Latest Public Update (2026-11-11)
+## Latest Public Update (2026-11-12)
+
+The storefront homepage now leads with JewelTime's own logo and the slogan «زمان جواهر است». Brand model carousels display current public catalogue prices or an inquiry label when a price is absent. The shop and brand archives have clearer brand and gender navigation, the product layout is easier to read, and the legacy login route leads to the existing account form. Live checks covered the homepage, shop, brand archive, product and account entry at mobile and desktop widths in light and dark preferences. Product gallery and account password visibility controls worked. Authenticated account pages were not tested; no purchase, message or login was submitted.
+
+## Previous Storefront Update (2026-11-12)
+
+The JewelTime storefront now pairs its corporate brand directory with official watch campaign imagery, including Tornado's red-car watch banner. Brand logos open the available women's and men's models in manually controlled carousels, and brand pages use matching campaign imagery where verified assets were available. The live homepage, brand archive, shop and contact pages were checked at mobile and desktop widths in both browser color preferences. Catalogue data and commerce operations remain in their existing systems; no purchase or inquiry was submitted.
+
+## Previous Storefront Update (2026-11-11)
 
 The separate public WooCommerce storefront now presents JewelTime as a multi-brand watch company. Its homepage leads with the company and a ten-brand index, followed by catalogue and representation paths. The existing agency form has a cleaner visual treatment and Persian file-selection text. The live page was checked on mobile and desktop in both browser color preferences, including navigation, search focus and file selection; no order or inquiry was submitted.
 
