@@ -4,7 +4,9 @@
 
 The homepage now introduces JewelTime with its own logo and the slogan «زمان جواهر است», while the Tornado red-car campaign remains in a separate brand feature. Brand carousels show current public catalogue prices, or an inquiry label where no price is available. The shop brand directory, gender links on brand archives, single product presentation and account entry were refined. The old blank login route now opens the existing account form.
 
-Live checks covered the homepage, shop, Tornado archive, a product and account entry at desktop and mobile widths in light and dark preferences. Prices, page headings, brand links, gallery selection, carousel movement, mobile navigation and password visibility were checked. A transient mobile product layout shift settled without horizontal overflow. Authenticated account pages were not tested, and no purchase, message or login was submitted.
+Subsequent visual checks led to a complete desktop grid for the ten shop logos, a one-row desktop header and a contained product specifications widget at intermediate widths. These changes use the existing catalogue and commerce controls.
+
+Live checks covered the homepage, shop, Tornado archive, a product and account entry at desktop and mobile widths in light and dark preferences. The product layout was also checked at 1100 px. Prices, page headings, brand links, gallery selection, carousel movement, mobile navigation and password visibility were checked. A transient mobile product layout shift settled without horizontal overflow, and the later intermediate-width specification overflow was fixed and rechecked. Authenticated account pages were not tested, and no purchase, message or login was submitted.
 
 ## 2026-11-12 — Official brand campaigns and model browsing
 

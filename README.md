@@ -32,7 +32,7 @@ This repo is useful as a secondary platform architecture signal. It should not o
 
 ## Latest Public Update (2026-11-12)
 
-The storefront homepage now leads with JewelTime's own logo and the slogan «زمان جواهر است». Brand model carousels display current public catalogue prices or an inquiry label when a price is absent. The shop and brand archives have clearer brand and gender navigation, the product layout is easier to read, and the legacy login route leads to the existing account form. Live checks covered the homepage, shop, brand archive, product and account entry at mobile and desktop widths in light and dark preferences. Product gallery and account password visibility controls worked. Authenticated account pages were not tested; no purchase, message or login was submitted.
+The storefront homepage now leads with JewelTime's own logo and the slogan «زمان جواهر است». Brand model carousels display current public catalogue prices or an inquiry label when a price is absent. The shop shows all ten brand logos in a complete desktop grid, the desktop header stays on one line, brand archives offer gender paths, and the product layout keeps its specifications within the page at intermediate widths. The legacy login route leads to the existing account form. Live checks covered the homepage, shop, brand archive, product and account entry at mobile and desktop widths in light and dark preferences; the product was also checked at an intermediate width. Product gallery and account password visibility controls worked. Authenticated account pages were not tested; no purchase, message or login was submitted.
 
 ## Previous Storefront Update (2026-11-12)
 
