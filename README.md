@@ -30,6 +30,10 @@ Not safe to publish:
 
 This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
+## Latest Storefront Update (2026-11-12)
+
+The ten watch brand pages now share a consistent company presentation: brand marks, category paths, and official campaign images where approved assets exist. A brand with no listed products gives a clear Persian next step. Existing representative details are easier to scan in responsive cards, product specifications sit below the main gallery and buying area, the account password control is clearer, and the compact footer reaches interior pages. Live checks covered brand pages, the shop, a product and account entry at mobile and desktop widths, including category navigation, sorting, gallery switching and password visibility. No order or login was submitted; authenticated account screens were not tested.
+
 ## Latest Public Update (2026-11-12)
 
 The lower homepage now moves directly from available brand models to four clearly grouped video links and a more compact agency form. The video label and form introduction are clearer, the form uses two columns on desktop and one on mobile, and the footer no longer shows social icons without destinations. The working trust and credit links remain. Live checks covered the lower page at mobile and desktop widths in light and dark preferences, including brand selection, carousel movement and file selection; no form was submitted. The shop, product and account entry also loaded after publication.
