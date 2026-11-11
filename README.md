@@ -32,6 +32,12 @@ This repo is useful as a secondary platform architecture signal. It should not o
 
 ## Latest Public Update (2026-11-11)
 
+The separate public WooCommerce storefront now presents JewelTime as a multi-brand watch company. Its homepage leads with the company and a ten-brand index, followed by catalogue and representation paths. The existing agency form has a cleaner visual treatment and Persian file-selection text. The live page was checked on mobile and desktop in both browser color preferences, including navigation, search focus and file selection; no order or inquiry was submitted.
+
+The operations app update below remains independent of the storefront work.
+
+## Previous Update (2026-11-11)
+
 Catalog exports now resolve a missing watch brand from an unambiguous brand-specific order-code prefix. The same brand decision is used in product, stock and marketplace spreadsheets. An import guard also fills missing brand and category data for eligible watches while preserving explicit conflicting values; a scoped repair corrected one existing published product after a dry run and private recovery snapshot.
 
 Focused checks passed and a live read-only export-row check returned the expected brand. The public desktop product page showed the brand and category. An authenticated spreadsheet download and mobile or alternate-theme visual states were not verified.

@@ -1,5 +1,11 @@
 # Public Update Notes
 
+## 2026-11-11 — Corporate multi-brand storefront
+
+The public WooCommerce homepage previously centered a single watch and shopping message. It now introduces JewelTime as a company with multiple watch brands, gives each of ten brand pages a clear entry point, and makes the catalogue and representation form easier to find. Navy and gold follow the existing site identity, while product photography stays in the catalogue section.
+
+The live homepage was inspected at mobile and desktop widths in light and dark browser preferences. The brand links, navigation, search focus, form presence, Persian file-selection text and horizontal overflow were checked. No purchase or inquiry was created. This storefront is separate from the operations app described in the other updates.
+
 ## 2026-11-11 — Consistent brand labels across catalog workflows
 
 Some imported watches carried an order code but no brand, leaving operational spreadsheets incomplete. The export flow now fills a missing brand only when the code prefix has one verified meaning. The import flow assigns an eligible watch's existing brand and category terms without replacing a conflicting explicit value. A dry-run-first, recoverable repair handled one previously published item.
