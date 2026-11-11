@@ -1,5 +1,11 @@
 # Public Update Notes
 
+## 2026-11-12 — Lower homepage presentation
+
+The lower homepage no longer repeats an agency invitation between the brand catalogue and the company videos. Four existing video destinations are grouped into readable cards. The first label now matches its destination, and the agency introduction is shorter and more direct. The existing form uses two columns on desktop and one on mobile. Empty social links are hidden while the footer's working credit and trust links remain.
+
+Live checks at mobile and desktop widths in light and dark preferences confirmed the video and form layouts, price cards, zero horizontal overflow and no JavaScript errors. Brand selection, carousel movement and file selection responded without submitting the form. The shop, product and account entry still loaded after the update. The form submission and authenticated account panel were not exercised.
+
 ## 2026-11-12 — Company hero, catalogue prices and account entry
 
 The homepage now introduces JewelTime with its own logo and the slogan «زمان جواهر است», while the Tornado red-car campaign remains in a separate brand feature. Brand carousels show current public catalogue prices, or an inquiry label where no price is available. The shop brand directory, gender links on brand archives, single product presentation and account entry were refined. The old blank login route now opens the existing account form.
