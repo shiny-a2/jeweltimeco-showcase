@@ -32,6 +32,10 @@ This repo is useful as a secondary platform architecture signal. It should not o
 
 ## Latest Storefront Update (2026-11-12)
 
+JewelTime's homepage now moves directly from the company introduction to its ten-brand directory. The separate Tornado campaign block is gone; its image remains available inside the Tornado brand view. Official campaign visuals for Filippo Loreti, Jacques Philippe and Welder were refreshed, and the live product carousels select sharper responsive catalogue images. A mobile brand product-grid overflow found during publication was corrected. Live checks covered the homepage and changed brand pages at mobile and desktop widths, including image loading, displayed prices and carousel movement. No purchase, login or message was submitted.
+
+## Previous Storefront Update (2026-11-12)
+
 The ten watch brand pages now share a consistent company presentation: brand marks, category paths, and official campaign images where approved assets exist. A brand with no listed products gives a clear Persian next step. Existing representative details are easier to scan in responsive cards, product specifications sit below the main gallery and buying area, the account password control is clearer, and the compact footer reaches interior pages. Live checks covered brand pages, the shop, a product and account entry at mobile and desktop widths, including category navigation, sorting, gallery switching and password visibility. No order or login was submitted; authenticated account screens were not tested.
 
 ## Latest Public Update (2026-11-12)
