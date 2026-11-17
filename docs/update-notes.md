@@ -1,5 +1,9 @@
 # Public Update Notes
 
+## 2026-11-17 — Consultant order export source alignment
+
+The existing advisor order-export fix was already active on the app, but it had not reached the default source branch. The source now preserves workbook access for orders visible in the staff dashboard across future releases, while customer ownership checks remain in place. Nine isolated export scenarios passed, including workbook content and denied cross-account access. This update did not change the live app; a signed-in consultant download remains to be checked on a real order. No customer workbook is included here.
+
 ## 2026-11-12 — Lower homepage presentation
 
 The lower homepage no longer repeats an agency invitation between the brand catalogue and the company videos. Four existing video destinations are grouped into readable cards. The first label now matches its destination, and the agency introduction is shorter and more direct. The existing form uses two columns on desktop and one on mobile. Empty social links are hidden while the footer's working credit and trust links remain.
