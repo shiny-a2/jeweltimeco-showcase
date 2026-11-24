@@ -30,6 +30,10 @@ Not safe to publish:
 
 This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
+## Released customer workflow (2026-11-24)
+
+Authorized staff can reuse existing contacts and update the current advisor while invoice attribution remains consistent. Focused backend and interactive browser checks pass, including customer boundaries, transaction rollback, late lookup responses and save feedback. The update is live. See the [release note](docs/releases/2026-11-17-customer-workflow.md).
+
 ## Latest Storefront Update (2026-11-12)
 
 JewelTime's homepage now moves directly from the company introduction to its ten-brand directory. The separate Tornado campaign block is gone; its image remains available inside the Tornado brand view. Official campaign visuals for Filippo Loreti, Jacques Philippe and Welder were refreshed, and the live product carousels select sharper responsive catalogue images. A mobile brand product-grid overflow found during publication was corrected. Live checks covered the homepage and changed brand pages at mobile and desktop widths, including image loading, displayed prices and carousel movement. No purchase, login or message was submitted.
