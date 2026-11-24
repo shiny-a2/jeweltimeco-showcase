@@ -30,9 +30,9 @@ Not safe to publish:
 
 This repo is useful as a secondary platform architecture signal. It should not outrank the core WooCommerce infrastructure repos in the pinned profile.
 
-## Prepared Operations Update (2026-11-17)
+## Released customer workflow (2026-11-24)
 
-A customer-workflow correction is ready for review: authorized staff can reuse existing contacts and update the current advisor while invoice attribution remains consistent. Focused backend and interactive browser checks pass, including customer boundaries, transaction rollback, late lookup responses and save feedback. Production deployment and authenticated acceptance are pending. See the [prepared workflow note](docs/releases/2026-11-17-customer-workflow.md).
+Authorized staff can reuse existing contacts and update the current advisor while invoice attribution remains consistent. Focused backend and interactive browser checks pass, including customer boundaries, transaction rollback, late lookup responses and save feedback. The update is live. See the [release note](docs/releases/2026-11-17-customer-workflow.md).
 
 ## Latest Storefront Update (2026-11-12)
 
